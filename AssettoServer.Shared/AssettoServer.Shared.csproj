@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <SelfContained>false</SelfContained>
+        <DebugType>embedded</DebugType>
+        <PathMap>$(MSBuildProjectDirectory)=$(MSBuildProjectName)</PathMap>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+      <FrameworkReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
+      <PackageReference Include="Serilog" Version="4.3.0" />
+    </ItemGroup>
+</Project>
