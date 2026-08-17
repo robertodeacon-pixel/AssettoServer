@@ -5,8 +5,9 @@ namespace AssettoServer.Server.Weather;
 
 public class RainHelper
 {
-    private float _prevWetness = 0;
-    private float _prevPuddles = 0;
+    private float _prevWetness   = 0;
+    private float _prevPuddles   = 0;
+    private float _prevIntensity = 0;
     private float _prevHumidity = -1;
 
     private double _logTimer = 0;
@@ -23,7 +24,9 @@ public class RainHelper
     private void CalcWater(WeatherData weather, double sun, double dt, bool calcHumidity = false)
     {
         double timeScale = dt; // dt is already in seconds
-
+        double deltaIntensity = Math.Abs(weather.RainIntensity - _prevIntensity);
+        bool suddenDryOut = (weather.RainIntensity < 0.01 && _prevIntensity > 0.05);
+        
         // Drying factor
         double myDrying = (Math.Max(0.2, Math.Min(1, weather.TemperatureRoad / 40.0))
                            + (sun / 10.0)
@@ -31,18 +34,32 @@ public class RainHelper
                            - (weather.Humidity / 10.0)) / 2.0;
 
         // Wetness
-        double wetUpExp = 1.15 + myDrying;
-        double wetDnExp = 2.0 - myDrying;
+        double wetUpExp = 1.6 + myDrying;
+        double wetDnExp = 2.95 - myDrying;
         double deltaWet = weather.RainIntensity - _prevWetness;
+
+        if (suddenDryOut) // Session change forcing abnormal sudden change, for example 
+        {
+            wetUpExp = 1;
+            wetDnExp = 1;
+        }
+
         weather.RainWetness = deltaWet >= 0
             ? (float)(_prevWetness + Math.Pow(deltaWet, wetUpExp) * timeScale)
             : (float)(_prevWetness - Math.Pow(-deltaWet, wetDnExp) * timeScale);
         weather.RainWetness = (float)Math.Max(0, weather.RainWetness - 0.0001 * timeScale);
 
         // Puddles
-        double pudUpExp = 2.4 + myDrying;
-        double pudDnExp = 3.5 - myDrying;
+        double pudUpExp = 2.5 + myDrying;
+        double pudDnExp = 4.15 - myDrying;
         double deltaPud = weather.RainIntensity - _prevPuddles;
+        
+        if (suddenDryOut) // Session change forcing abnormal sudden change, for example 
+        {
+            pudUpExp = 1;
+            pudDnExp = 1;
+        }
+
         weather.RainWater = deltaPud >= 0
             ? (float)(_prevPuddles + Math.Pow(deltaPud, pudUpExp) * timeScale)
             : (float)(_prevPuddles - Math.Pow(-deltaPud, pudDnExp) * timeScale);
@@ -50,7 +67,7 @@ public class RainHelper
 
         // Humidity
         double humUpExp = 1.8 + myDrying;
-        double humDnExp = 3.8 - myDrying;
+        double humDnExp = 3.3 - myDrying;
         double humidityBase = 0.6 - myDrying / 4;
         double humidityTops = 1 - myDrying / 4;
         double humidityTarget = (humidityTops - humidityBase) * weather.RainIntensity + humidityBase;
@@ -66,21 +83,22 @@ public class RainHelper
             _logTimer = 0;
             // Uncomment for console debugging
             //Console.WriteLine($">>>>");
-            //Console.WriteLine($"Rain: {weather.RainIntensity:F4} | Wet: {weather.RainWetness:F4} | Puddle: {weather.RainWater:F4} | Humidity: {weather.Humidity:F4}");
+            //Console.WriteLine($"{DateTime.Now:HH:mm:ss} | Rain: {weather.RainIntensity:F4} | Wet: {weather.RainWetness:F4} | Puddle: {weather.RainWater:F4} | Humidity: {weather.Humidity:F4}");
             //Console.WriteLine($"(DryK: {myDrying:F3}) | (WetUp: {wetUpExp:F3} | WetDn: {wetDnExp:F3} | PudUp: {pudUpExp:F3} | PudDn: {pudDnExp:F3})");
         }
 
         // Save previous values
-        _prevWetness = weather.RainWetness;
-        _prevPuddles = weather.RainWater;
-        _prevHumidity = weather.Humidity;
+        _prevIntensity = weather.RainIntensity;
+        _prevWetness   = weather.RainWetness;
+        _prevPuddles   = weather.RainWater;
+        _prevHumidity  = weather.Humidity;
     }
 
     public void Update(WeatherData weather, double baseGrip, double rainTrackGripReduction, long dt)
     {
         // Handle transition
-        if (weather.Type.WeatherFxType != weather.UpcomingType.WeatherFxType)
-        {
+        //if (weather.Type.WeatherFxType != weather.UpcomingType.WeatherFxType)
+        //{
             weather.TransitionValueInternal += dt / weather.TransitionDuration;
 
             if (weather.TransitionValueInternal >= 1)
@@ -96,7 +114,7 @@ public class RainHelper
                 weather.TransitionValue = (ushort)(MathUtils.Smoothstep(0, 1, weather.TransitionValueInternal) * ushort.MaxValue);
                 weather.RainIntensity = (float)MathUtils.Lerp(weather.Type.RainIntensity, weather.UpcomingType.RainIntensity, weather.TransitionValueInternal);
             }
-        }
+        //}
 
         // Interpolated sun
         double sunInterpolated = MathUtils.Lerp(weather.Type.Sun, weather.UpcomingType.Sun, weather.TransitionValueInternal);

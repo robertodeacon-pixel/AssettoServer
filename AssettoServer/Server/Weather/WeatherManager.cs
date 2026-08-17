@@ -103,7 +103,10 @@ public class WeatherManager : BackgroundService, IHostedLifecycleService
     
     public void SetCspWeather(WeatherFxType upcoming, int duration)
     {
-        Log.Information("CSP weather transitioning to {UpcomingWeatherType}", upcoming);
+        Log.Information(
+            "CSP weather transitioning to {UpcomingWeatherType} over {Duration} seconds",
+            upcoming,
+            duration);
         
         var baseType = _weatherTypeProvider.GetWeatherType(upcoming);
         var visualTypeEnum = MapToVisualWeather(upcoming);

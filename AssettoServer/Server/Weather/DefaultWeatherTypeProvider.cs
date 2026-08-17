@@ -9,7 +9,7 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         new()
         {
             WeatherFxType = WeatherFxType.LightThunderstorm,
-            TemperatureCoefficient = 0.7f,
+            TemperatureCoefficient = -0.1f,
             RainIntensity = 0.1f,
             RainWetness = 0.00f,
             RainWater = 0.00f,
@@ -19,8 +19,8 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         new()
         {
             WeatherFxType = WeatherFxType.Thunderstorm,
-            TemperatureCoefficient = 0.2f,
-            RainIntensity = 0.2f,
+            TemperatureCoefficient = -0.2f,
+            RainIntensity = 0.3f,
             RainWetness = 0.00f,
             RainWater = 0.00f,
             Sun = 0.10f,
@@ -29,8 +29,8 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         new()
         {
             WeatherFxType = WeatherFxType.HeavyThunderstorm,
-            TemperatureCoefficient = -0.2f,
-            RainIntensity = 0.4f,
+            TemperatureCoefficient = -0.3f,
+            RainIntensity = 0.7f,
             RainWetness = 0.00f,
             RainWater = 0.00f,
             Sun = 0.00f,
@@ -39,9 +39,9 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         new()
         {
             WeatherFxType = WeatherFxType.LightDrizzle,
-            TemperatureCoefficient = 0.1f,
-            RainIntensity = 0.05f,
-            RainWetness = 0.05f,
+            TemperatureCoefficient = 0.0f,
+            RainIntensity = 0.06f,
+            RainWetness = 0.06f,
             RainWater = 0.00f,
             Sun = 0.50f,
             Humidity = 0.70f
@@ -50,7 +50,7 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         {
             WeatherFxType = WeatherFxType.Drizzle,
             TemperatureCoefficient = -0.1f,
-            RainIntensity = 0.15f,
+            RainIntensity = 0.20f,
             RainWetness = 0.10f,
             RainWater = 0.05f,
             Sun = 0.10f,
@@ -60,7 +60,7 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         {
             WeatherFxType = WeatherFxType.HeavyDrizzle,
             TemperatureCoefficient = -0.3f,
-            RainIntensity = 0.25f,
+            RainIntensity = 0.40f,
             RainWetness = 0.20f,
             RainWater = 0.10f,
             Sun = 0.00f,
@@ -69,9 +69,9 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         new()
         {
             WeatherFxType = WeatherFxType.LightRain,
-            TemperatureCoefficient = 0.01f,
-            RainIntensity = 0.3f,
-            RainWetness = 0.30f,
+            TemperatureCoefficient = -0.1f,
+            RainIntensity = 0.25f,
+            RainWetness = 0.25f,
             RainWater = 0.10f,
             Sun = 0.25f,
             Humidity = 1.00f
@@ -79,7 +79,7 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         new()
         {
             WeatherFxType = WeatherFxType.Rain,
-            TemperatureCoefficient = -0.2f,
+            TemperatureCoefficient = -0.3f,
             RainIntensity = 0.6f,
             RainWetness = 0.60f,
             RainWater = 0.30f,
@@ -159,7 +159,7 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         new()
         {
             WeatherFxType = WeatherFxType.Clear,
-            TemperatureCoefficient = 1f,
+            TemperatureCoefficient = 0.8f,
             RainIntensity = 0.0f,
             RainWetness = 0.00f,
             RainWater = 0.00f,
@@ -169,7 +169,7 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         new()
         {
             WeatherFxType = WeatherFxType.FewClouds,
-            TemperatureCoefficient = 1f,
+            TemperatureCoefficient = 0.6f,
             RainIntensity = 0.0f,
             RainWetness = 0.00f,
             RainWater = 0.00f,
@@ -179,7 +179,7 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         new()
         {
             WeatherFxType = WeatherFxType.ScatteredClouds,
-            TemperatureCoefficient = 0.8f,
+            TemperatureCoefficient = 0.4f,
             RainIntensity = 0.0f,
             RainWetness = 0.00f,
             RainWater = 0.00f,
@@ -189,7 +189,7 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         new()
         {
             WeatherFxType = WeatherFxType.BrokenClouds,
-            TemperatureCoefficient = 0.1f,
+            TemperatureCoefficient = 0.3f,
             RainIntensity = 0.0f,
             RainWetness = 0.00f,
             RainWater = 0.00f,
@@ -199,7 +199,7 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         new()
         {
             WeatherFxType = WeatherFxType.OvercastClouds,
-            TemperatureCoefficient = 0.01f,
+            TemperatureCoefficient = 0.2f,
             RainIntensity = 0.0f,
             RainWetness = 0.00f,
             RainWater = 0.00f,
@@ -340,8 +340,8 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         {
             WeatherFxType = WeatherFxType.LightDrizzleFewClouds,
             TemperatureCoefficient = 0.3f,
-            RainIntensity = 0.05f,
-            RainWetness = 0.05f,
+            RainIntensity = 0.06f,
+            RainWetness = 0.06f,
             RainWater = 0.00f,
             Sun = 0.80f,
             Humidity = 0.40f
@@ -350,8 +350,8 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         {
             WeatherFxType = WeatherFxType.LightDrizzleScatteredClouds,
             TemperatureCoefficient = 0.2f,
-            RainIntensity = 0.05f,
-            RainWetness = 0.05f,
+            RainIntensity = 0.06f,
+            RainWetness = 0.06f,
             RainWater = 0.00f,
             Sun = 0.65f,
             Humidity = 0.50f
@@ -360,8 +360,8 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         {
             WeatherFxType = WeatherFxType.LightDrizzleBrokenClouds,
             TemperatureCoefficient = 0.1f,
-            RainIntensity = 0.05f,
-            RainWetness = 0.05f,
+            RainIntensity = 0.06f,
+            RainWetness = 0.06f,
             RainWater = 0.00f,
             Sun = 0.45f,
             Humidity = 0.65f
@@ -369,9 +369,9 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         new()
         {
             WeatherFxType = WeatherFxType.LightRainScatteredClouds,
-            TemperatureCoefficient = 0.03f,
-            RainIntensity = 0.3f,
-            RainWetness = 0.30f,
+            TemperatureCoefficient = 0.1f,
+            RainIntensity = 0.25f,
+            RainWetness = 0.25f,
             RainWater = 0.10f,
             Sun = 0.50f,
             Humidity = 0.80f
@@ -379,9 +379,9 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         new()
         {
             WeatherFxType = WeatherFxType.LightRainBrokenClouds,
-            TemperatureCoefficient = 0.02f,
-            RainIntensity = 0.3f,
-            RainWetness = 0.30f,
+            TemperatureCoefficient = 0.0f,
+            RainIntensity = 0.25f,
+            RainWetness = 0.25f,
             RainWater = 0.10f,
             Sun = 0.30f,
             Humidity = 0.90f
@@ -389,7 +389,7 @@ public class DefaultWeatherTypeProvider : IWeatherTypeProvider
         new()
         {    
             WeatherFxType = WeatherFxType.RainBrokenClouds,
-            TemperatureCoefficient = -0.01f,
+            TemperatureCoefficient = -0.2f,
             RainIntensity = 0.6f,
             RainWetness = 0.60f,
             RainWater = 0.30f,
