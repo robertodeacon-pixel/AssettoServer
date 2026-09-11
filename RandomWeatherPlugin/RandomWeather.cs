@@ -350,16 +350,31 @@ public class RandomWeather : BackgroundService
                     weatherDuration = Random.Shared.Next(
                         _configuration.MinWeatherDurationMilliseconds,
                         _configuration.MaxWeatherDurationMilliseconds);
+                    
+                    var currentRainIntensity = _previousRainIntensity;
+                    var next = PickRandom();
+                    var nextWeatherType = _weatherTypeProvider.GetWeatherType(next);
+                    var durationMult = 1.0f;
+                    
+                    // Shorten weather duration when wetness is increasing
+                    // and the current rain intensity is still relatively low.
+                    if (nextWeatherType.RainIntensity > currentRainIntensity)
+                    {
+                        if (currentRainIntensity < 0.08f)
+                            durationMult = 0.4f + (Random.Shared.NextSingle() * 0.6f);
 
+                        else if (currentRainIntensity < 0.26f)
+                            durationMult = 0.7f + (Random.Shared.NextSingle() * 0.3f);
+                    }
+                    
+                    weatherDuration = (int)(weatherDuration * durationMult);
+                    
                     if (weatherDuration < 25000)
                         weatherDuration = 25000;
 
                     transitionDuration = Random.Shared.Next(
                         _configuration.MinTransitionDurationMilliseconds,
                         _configuration.MaxTransitionDurationMilliseconds);
-
-                    var next = PickRandom();
-                    var nextWeatherType = _weatherTypeProvider.GetWeatherType(next);
 
                     DEBUGTOT++;
 

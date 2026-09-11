@@ -35,7 +35,7 @@ public class RainHelper
 
         // Wetness
         double wetUpExp = 1.6 + myDrying;
-        double wetDnExp = 2.95 - myDrying;
+        double wetDnExp = 3.0 - myDrying;
         double deltaWet = weather.RainIntensity - _prevWetness;
 
         if (suddenDryOut) // Session change forcing abnormal sudden change, for example 
@@ -50,8 +50,8 @@ public class RainHelper
         weather.RainWetness = (float)Math.Max(0, weather.RainWetness - 0.0001 * timeScale);
 
         // Puddles
-        double pudUpExp = 2.5 + myDrying;
-        double pudDnExp = 4.15 - myDrying;
+        double pudUpExp = 2.4 + myDrying;
+        double pudDnExp = 4.2 - myDrying;
         double deltaPud = weather.RainIntensity - _prevPuddles;
         
         if (suddenDryOut) // Session change forcing abnormal sudden change, for example 
